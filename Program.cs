@@ -1,16 +1,14 @@
 ﻿using System;
 
-namespace Tester
+namespace ConsoleApp3
 {
     class Program
     {
         static void Main(string[] args)
         {
             int PascalRank = int.Parse(Console.ReadLine());
-            InvalidRank(PascalRank);
-            Triangle(PascalRank);
+            Triangle(InvalidRank(PascalRank));
         }
-
         static void Triangle(int Rank)
         {
             int val = 1;
@@ -27,14 +25,14 @@ namespace Tester
                 Console.WriteLine();
             }
         }
-
-        static void InvalidRank(int Rank)
+        static int InvalidRank(int Rank)
         {
             while (Rank < 0)
             {
-                Console.WriteLine("Invalid Pascal’s triangle row number.");
+                Console.WriteLine("Invalid Pascal's triangle row number.");
                 Rank = int.Parse(Console.ReadLine());
             }
+            return Rank;
         }
     }
 }
