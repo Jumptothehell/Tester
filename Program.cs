@@ -7,12 +7,13 @@ namespace Tester
         static void Main(string[] args)
         {
             int PascalRank = int.Parse(Console.ReadLine());
+            InvalidRank(PascalRank);
             Triangle(PascalRank);
         }
 
         static void Triangle(int Rank)
         {
-            int val = 1;            
+            int val = 1;
             for (int i = 0; i <= Rank; i++)
             {
                 for (int j = 0; j <= i; j++)
@@ -24,6 +25,15 @@ namespace Tester
                     Console.Write(val + " ");
                 }
                 Console.WriteLine();
+            }
+        }
+
+        static void InvalidRank(int Rank)
+        {
+            while (Rank < 0)
+            {
+                Console.WriteLine("Invalid Pascal’s triangle row number.");
+                Rank = int.Parse(Console.ReadLine());
             }
         }
     }
