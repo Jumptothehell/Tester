@@ -1,38 +1,93 @@
 ﻿using System;
 
-namespace ConsoleApp3
+namespace DNA
 {
     class Program
     {
         static void Main(string[] args)
         {
-            int PascalRank = int.Parse(Console.ReadLine());
-            Triangle(InvalidRank(PascalRank));
-        }
-        static void Triangle(int Rank)
-        {
-            int val = 1;
-            for (int i = 0; i <= Rank; i++)
+            bool TryAgain = true;
+            do
             {
-                for (int j = 0; j <= i; j++)
+                char YN;
+                bool YesNo = false;
+                Console.WriteLine("Please input base nucleotide of DNA :");
+                string HalfBaseNucleotide = Console.ReadLine();
+                if (IsValidSequence(HalfBaseNucleotide) == true)
                 {
-                    if (j == 0 || j == i)
-                        val = 1;
-                    else
-                        val = val * (i - j + 1) / j;
-                    Console.Write(val + " ");
+                    Console.WriteLine("Current half DNA sequence : " + HalfBaseNucleotide);
+                    Console.WriteLine("Do you want to replicate it ? (Y/N) : ");
+                    do
+                    {
+                        YN = char.Parse(Console.ReadLine());
+                        if (YN == 'Y' || YN == 'N')
+                        {
+                            YesNo = true;
+                            if (YN == 'Y')
+                            {
+                                Console.WriteLine("Replicated half DNA sequence : " + ReplicateSeqeunce(HalfBaseNucleotide));
+                            }
+                            else
+                            {
+                                Console.WriteLine("Skip");
+                            }
+                        }
+                        else
+                        {
+                            YesNo = false;
+                            Console.WriteLine("Please input Y or N.");
+                        }
+                    } while (YesNo == false);
                 }
-                Console.WriteLine();
-            }
+                else
+                {
+                    Console.WriteLine("That half DNA sequence is invalid.");
+                }
+                Console.WriteLine("Do you want to process another sequence ? (Y/N) : ");
+                do
+                {
+                    YN = char.Parse(Console.ReadLine());
+                    if (YN == 'Y' || YN == 'N')
+                    {
+                        YesNo = true;
+                        if (YN == 'Y')
+                        {
+                            TryAgain = true;
+                        }
+                        else
+                        {
+                            TryAgain = false;
+                            Console.WriteLine("END");
+                        }
+                    }
+                    else
+                    {
+                        YesNo = false;
+                        Console.WriteLine("Please input Y or N.");
+                    }
+                } while (YesNo == false);
+            } while (TryAgain == true);
         }
-        static int InvalidRank(int Rank)
+
+        static bool IsValidSequence(string halfDNASequence)
         {
-            while (Rank < 0)
+            foreach (char nucleotide in halfDNASequence)
             {
-                Console.WriteLine("Invalid Pascal's triangle row number.");
-                Rank = int.Parse(Console.ReadLine());
+                if (!"ATCG".Contains(nucleotide))
+                {
+                    return false;
+                }
             }
-            return Rank;
+            return true;
+        }
+        static string ReplicateSeqeunce(string halfDNASequence)
+        {
+            string result = "";
+            foreach (char nucleotide in halfDNASequence)
+            {
+                result += "TAGC"["ATCG".IndexOf(nucleotide)];
+            }
+            return result;
         }
     }
 }
